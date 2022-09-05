@@ -44,6 +44,7 @@ export const StyledTile = styled.div.attrs(({theme, width}) => {
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    background-color: ${({theme}) => theme.colors.mainBackground};
 
     & p {
         background-color: rgba(0, 0, 0, 0)

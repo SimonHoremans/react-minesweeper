@@ -30,4 +30,8 @@ export const StyledSmileyFace = styled.div`
     & svg {
         cursor: pointer;
     }
+
+    & p {
+        font-family: ${({theme}) => theme.tileFontStack};
+    }
 `

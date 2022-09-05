@@ -3,13 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFaceSmile } from '@fortawesome/free-solid-svg-icons'
 import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons'
 
-const SmileyFace = ({happy}) => {
+const SmileyFace = ({mood}) => {
   return (
     <StyledSmileyFace>
-        {happy ? 
-        <FontAwesomeIcon icon={faFaceSmile} />:
-        <FontAwesomeIcon icon={faFaceSadTear} />}
-        
+        {(() => {
+          switch(mood) {
+            case 'happy':
+              return <FontAwesomeIcon icon={faFaceSmile} />
+            case 'sad':
+              return <FontAwesomeIcon icon={faFaceSadTear} />
+            case 'UwU':
+              return <p>UwU</p>
+          }
+        })()} 
     </StyledSmileyFace>
   )
 }

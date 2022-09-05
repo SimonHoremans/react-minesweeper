@@ -32,7 +32,8 @@ const setWidthForDifferentBreakPoints = (theme) => {
 export const StyledStatusBar = styled.div`
     
     position: sticky;
-    
+    top: 0;
+    border-bottom: 5px solid ${({theme}) => theme.colors.mainBackground};
     background-color: ${({theme}) => theme.colors.statusBar};
     padding: 10px 0;
 

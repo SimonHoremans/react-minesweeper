@@ -32,10 +32,44 @@ const updateMinefield = (minefield, selectedTile) => {
         }
     }
 
-    const visible = copyMap(minefield.visible)
-    const mineMap = minefield.mineMap
+    const gameOver = (visible, mineMap) => {
 
-    if(mineMap[selectedTile[0]][selectedTile[1]] !== 0) {visible[selectedTile[0]][selectedTile[1]] = true; return visible}
+        const flags = copyMap(minefield.flags)
+
+        mineMap.forEach((column, x) => {
+            column.forEach((tile, y) => {
+                if(tile === -1) {
+                    if(!flags[x][y]) visible[x][y] = true
+                }
+                else {
+                    if(flags[x][y]) flags[x][y] = false
+                }
+            })
+        })
+
+        return flags
+    }
+    
+
+    const visible = copyMap(minefield.visible)
+    let flags = null
+    const mineMap = minefield.mineMap
+    const [xTile, yTile] = selectedTile
+    const tileValue = mineMap[xTile][yTile]
+
+
+
+
+
+    if(tileValue === -1) {
+        flags = gameOver(visible, mineMap)
+        return {newVisible: visible, newFlags: flags}
+    }
+
+    if(tileValue !== 0) {
+        visible[xTile][yTile] = true
+        return {newVisible: visible, newFlags: flags}
+    }
     
     const zeroTileQueque = [selectedTile]
 
@@ -59,7 +93,7 @@ const updateMinefield = (minefield, selectedTile) => {
 
     }
 
-    return visible
+    return {newVisible: visible, newFlags: flags}
 }
 
 export default updateMinefield
