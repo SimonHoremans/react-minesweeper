@@ -13,8 +13,7 @@ const Timer = () => {
     useEffect(() => {
 
         let interval
-
-        console.log('yes')
+        
         if(started) {
             startTime.current = DateTime.now()
             interval = setInterval(() => {

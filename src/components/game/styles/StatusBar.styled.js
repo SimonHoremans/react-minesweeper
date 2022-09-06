@@ -1,44 +1,24 @@
 import styled from 'styled-components'
+import { breakpointStyleGenerator } from '../../../Theme'
 
-const setWidthForDifferentBreakPoints = (theme) => {
-
-    let styles = []
-
-    for (const [key, value] of Object.entries(theme.breakpoints)) {
-
-        // if(key === 'xs') continue
-
-        const widthBoard = value - 2*theme.boardSpacing
-        const fontSize = theme.timerSize[key]
-
-        styles.push(`
-        @media(min-width: ${value}px) {
-            & .container {
-                width: ${widthBoard}px;
-            }
-
-            & #pause-button {
-                font-size: ${fontSize + 10}px; 
-            }
-        }
-        `)
-        
-      }
-    return styles.join('\n')
-}
-
-
-
-export const StyledStatusBar = styled.div`
-    
+export const StyledStatusBar = styled.div.attrs(({theme}) => {
+    return {
+        colors: theme.colors.statusBar,
+        sizes: theme.sizes.statusBar
+    }
+})`
+    width: 100%;
     position: sticky;
     top: 0;
-    border-bottom: 5px solid ${({theme}) => theme.colors.mainBackground};
-    background-color: ${({theme}) => theme.colors.statusBar};
+    border-bottom: 5px solid ${({colors}) => colors.border};
+    background-color: ${({colors}) => colors.background};
     padding: 10px 0;
 
     & .container {
-        width: ${({theme}) => theme.smallestBoardSize - 2*theme.boardSpacing}px;
+        width: ${({theme}) => {
+            const boardSize = theme.sizes.board
+            return (boardSize.smallestWidth[0] - 2*boardSize.spacingX[0])
+        }}px;
         margin-left: auto;
         margin-right: auto;
         display: flex;
@@ -60,12 +40,19 @@ export const StyledStatusBar = styled.div`
         justify-content: flex-end;
     }
 
-    #pause-button {
-        color: ${({theme}) => theme.colors.smileyFace};
-    }
+    ${({theme}) => {
+        return breakpointStyleGenerator([{
+            values: 'relative',
+            processor: (value, key) => {
 
-    
+                if(key === 'xs') return
 
-    width: 100%;
-    ${({theme}) => setWidthForDifferentBreakPoints(theme)}
+                return `
+                & .container {
+                    width: ${value - theme.sizes.board.spacingX[0]*2}px;
+                }
+                `
+            }
+        }])
+    }}
 `

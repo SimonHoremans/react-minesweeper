@@ -1,40 +1,33 @@
 import styled from 'styled-components'
+import { breakpointStyleGenerator } from '../../../Theme'
 
-
-const setFontSizeForDifferentBreakPoints = (theme) => {
-
-    let styles = []
-
-    for (const [key, value] of Object.entries(theme.breakpoints)) {
-
-        // if(key === 'xs') continue
-
-        const fontSize = theme.timerSize[key]
-
-        styles.push(`
-        @media(min-width: ${value}px) {
-            font-size: ${fontSize}px;
-            padding: 0 ${fontSize/5}px;
-        }
-        `)
-        
-      }
-    return styles.join('\n')
+export const GameDisplay = styled.div.attrs(({theme}) => {
+    return {
+        colors: theme.colors.gameDisplay,
+        sizes: theme.sizes.gameDisplay
+    }
 }
-
-
-export const GameDisplay = styled.div.attrs(
    
 )`
-    border: 5px solid ${({theme}) => theme.colors['3']};
+    border: 5px solid ${({colors}) => colors.border};
     border-radius: 5px;
-    color: ${({theme}) => theme.colors['3']};
+    color: ${({colors}) => colors.color};
 
-    background-color: ${({theme}) => theme.colors.mainBackground};
+    background-color: ${({theme}) => theme.colors.background};
 
     font-weight: bold;
-    font-family: ${({theme}) => theme.tileFontStack};
-    ${({theme}) => setFontSizeForDifferentBreakPoints(theme)}
+
+    ${({sizes}) => {
+        return breakpointStyleGenerator([{
+            values: sizes.fontSize,
+            processor: (value, unit) => {
+                return `
+                font-size: ${value + unit};
+                padding: 0 ${(value/5) + unit};
+                `
+            }
+        }])
+    }}
     
     display: inline-flex;
 

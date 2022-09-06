@@ -1,32 +1,33 @@
 import { StyledGameMenu } from "./styles/GameMenu.styled"
 import top from '../../images/top.mp4'
-import { useRef } from "react"
-import { useEffect } from "react"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
-import Button from "./Button"
+import unhappy from '../../images/unhappy.mp4'
 
-const GameMenu = () => {
-
-
+const GameMenu = ({onXMark, onRetry=() => {return}, onMenu=() => {return}, success=true}) => {
   return (
-    <StyledGameMenu>
-      <div className="buttons-top">
-        <FontAwesomeIcon icon={faXmark}/>
-      </div>
-      <div className="content">
+    <StyledGameMenu onXMark={onXMark} buttons={[
+        {
+            name: 'retry',
+            callback: onRetry
+        },
+        {
+            name: 'menu',
+            callback: onMenu
+        }
+    ]}>
+        <div className="content">
         <div className="header">
-          <h1>Congrats!</h1>
+          <h1>{success ? 'Congrats!' : 'Oepsie'}</h1>
         </div>
         <div className="body">
           <div className="image-container">
           <video autoPlay loop muted>
-            <source src={top} type="video/mp4"/>
+            <source src={success ? top : unhappy} type="video/mp4"/>
           </video>
           {/* <div className="video-placeholder">
               <h1>Haha funny guy</h1>
           </div> */}
           </div>
+          {success && 
           <ul>
             <li>Time: 999 seconds</li>
             <li>Settings:
@@ -37,11 +38,8 @@ const GameMenu = () => {
               </ul>
             </li>
           </ul>
-                </div>
+          }
         </div>
-      <div className="buttons-bottom">
-        <div><Button>Retry</Button></div>
-        <div><Button>Menu</Button></div>
       </div>
     </StyledGameMenu>
   )

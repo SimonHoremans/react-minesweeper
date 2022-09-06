@@ -7,11 +7,11 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: ${({theme}) => theme.tileFontStack}
+    font-family: ${({theme}) => theme.fonts.general}
     }
 
     body {
-        background-color: ${({theme}) => theme.colors.mainBackground};
+        background-color: ${({theme}) => theme.colors.background};
     }
 
 `

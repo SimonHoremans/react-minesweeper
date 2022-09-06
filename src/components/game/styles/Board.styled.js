@@ -1,33 +1,30 @@
 import styled from 'styled-components'
-
-const getWidthForDifferentBreakPoints = (theme) => {
-
-    let styleString = ''
-
-    for (const [key, value] of Object.entries(theme.breakpoints)) {
-
-        if(key === 'xs') continue
-
-        styleString = styleString.concat(`
-            @media(min-width: ${value}px) {
-                width: ${value - theme.boardSpacing*2}px;
-            }
-        `)
-      }
-    return styleString
-}
+import { breakpointStyleGenerator } from '../../../Theme'
+import { styleString } from '../../../breakpointStyleGenerator'
 
 
-export const StyledBoard = styled.div`
+export const StyledBoard = styled.div.attrs(({theme}) => {
+    return {
+        sizes: theme.sizes.board,
+        colors: theme.colors.board
+    }
+})`
     margin-top: 150px;
     margin: 15px auto;
-    width: ${({theme}) => theme.smallestBoardSize}px;
+    width: ${({sizes}) => styleString(sizes.smallestWidth)};
     display: flex;
     flex-flow: row wrap;
-    border: ${({theme}) => theme.borderSize}px solid rgb(141 141 141);
-    background-color: rgb(141 141 141);
+    border: ${({sizes}) => styleString(sizes.border)} solid ${({colors}) => colors.border};
+    background-color: ${({colors}) => colors.background};
 
-    ${({theme}) => {
-        return getWidthForDifferentBreakPoints(theme)
-    }}
+    ${({sizes}) =>{
+        return breakpointStyleGenerator([{
+            values: 'relative',
+            processor: (value, key) => {
+                if(key === 'xs') return
+                return `width: ${value - sizes.spacingX[0]*2}px;`
+            }
+        }])
+    }
+    }
 `
