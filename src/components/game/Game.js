@@ -4,7 +4,8 @@ import updateMinefield from '../../game/updateMinefield'
 import Board from './Board'
 import StatusBar from "./StatusBar"
 import {DateTime} from 'luxon'
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import PauseMenu from "./PauseMenu"
 export const GameContext = createContext(null)
 
 const copyMap = (map) => {
@@ -56,6 +57,8 @@ const reducer = (state, action) => {
 
 const Game = () => {
 
+    const navigate = useNavigate()
+
     const location = useLocation()
 
     const width = location.state.width
@@ -67,6 +70,7 @@ const Game = () => {
     const endTime = useRef(null)
     const [mood, setMood] = useState('happy')
     const [showGameMenu, setShowGameMenu] = useState(false)
+    const [showPauseMenu, setShowPauseMenu] = useState(false)
 
     const [state, dispatch] = useReducer(reducer, 
         {width: width, 
@@ -80,11 +84,29 @@ const Game = () => {
             setMood: setMood
         })
 
+    const resume = () => {
+        setShowPauseMenu(false)
+    }
+
+    const refreshPage = () => {
+        window.location.reload(false)
+    }
+
+    const onStop = () => {
+        navigate('/')
+    }
+
 
   return (
-    <GameContext.Provider value={{state, dispatch, started, startTime, endTime, mood}}>
+    <GameContext.Provider value={{state, dispatch, started, startTime, endTime, mood, setShowPauseMenu}}>
         <StatusBar/>
         <Board/>
+        {showPauseMenu && <PauseMenu
+        onXMark={resume}
+        onResume={resume}
+        onRetry={refreshPage}
+        onStop={onStop}
+        />}
     </GameContext.Provider>
   )
 }

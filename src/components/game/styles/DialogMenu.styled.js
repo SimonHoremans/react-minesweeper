@@ -8,4 +8,8 @@ export const StyledDialogMenu = styled(Menu)`
         display: flex;
         justify-content: space-between;
     }
+
+    p {
+        font-size: 20px;
+    }
 `

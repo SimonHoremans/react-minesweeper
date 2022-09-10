@@ -40,8 +40,11 @@
     ]
   },
   "devDependencies": {
+    "@hookform/resolvers": "^2.9.7",
     "luxon": "^3.0.3",
+    "react-hook-form": "^7.35.0",
     "react-icons": "^4.4.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   }
 }
