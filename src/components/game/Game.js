@@ -4,6 +4,7 @@ import updateMinefield from '../../game/updateMinefield'
 import Board from './Board'
 import StatusBar from "./StatusBar"
 import {DateTime} from 'luxon'
+import { useLocation } from "react-router-dom"
 export const GameContext = createContext(null)
 
 const copyMap = (map) => {
@@ -53,7 +54,13 @@ const reducer = (state, action) => {
     }
 }
 
-const Game = ({width, height, numberOfMines}) => {
+const Game = () => {
+
+    const location = useLocation()
+
+    const width = location.state.width
+    const height = location.state.height
+    const numberOfMines = location.state.numberOfMines
 
     const [started, setStarted] = useState(false)
     const startTime = useRef(null)

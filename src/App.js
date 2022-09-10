@@ -10,6 +10,8 @@ import Button from './components/game/Button';
 import DialogMenu from './components/game/DialogMenu';
 import Menu from './components/game/Menu';
 import PauseMenu from './components/game/PauseMenu';
+import {Navigate, Route, Routes} from 'react-router-dom'
+import MainMenu from './components/game/MainMenu';
 
 function App() {
 
@@ -21,38 +23,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <>
-        <Button onClick={() => setShowGameMenu(true)} backgroundColor={theme.colors.background}>Menu</Button>
-        <Button onClick={() => setShowConfirmMenu(true)} backgroundColor={theme.colors.background}>Confirm</Button>
-        <Button onClick={() => setShowPauseMenu(true)} backgroundColor={theme.colors.background}>Pause</Button>
         <GlobalStyles/>
         {/* <Game width={20} height={20} numberOfMines={80}/> */}
-        {showGameMenu && <GameMenu success={success.current} onXMark={() => setShowGameMenu(false)}/>}
-        {showConfirmMenu && 
-        <DialogMenu onXMark={() => setShowConfirmMenu(false)}
-        buttons={[
-          {
-            name: 'Yes',
-            callback: () => {
-              setShowConfirmMenu(false)
-              success.current = true
-            },
-            color: theme.colorPalette.green
-          },
-          {
-            name: 'No',
-            callback: () => {
-              setShowConfirmMenu(false)
-              success.current = false
-            },
-            color: theme.colorPalette.red[0]
-          }
-        ]}>
-          <h2>Did he win?</h2>
-        </DialogMenu>
-        }
-        {showPauseMenu &&
-          <PauseMenu onXMark={() => setShowPauseMenu(false)}/>
-        }
+        <Routes>
+          <Route path='/' element={<Navigate to='/mainMenu'/>}/>
+          <Route path='/mainMenu/*' element={<MainMenu/>}/>
+          <Route path='/minefield' element={<Game/>}/>
+        </Routes>
       </>
     </ThemeProvider>
     
