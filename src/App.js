@@ -21,12 +21,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <>
-        {/* <Button onClick={() => setShowGameMenu(true)} backgroundColor={theme.colors.background}>Menu</Button>
+        <Button onClick={() => setShowGameMenu(true)} backgroundColor={theme.colors.background}>Menu</Button>
         <Button onClick={() => setShowConfirmMenu(true)} backgroundColor={theme.colors.background}>Confirm</Button>
-        <Button onClick={() => setShowPauseMenu(true)} backgroundColor={theme.colors.background}>Pause</Button> */}
+        <Button onClick={() => setShowPauseMenu(true)} backgroundColor={theme.colors.background}>Pause</Button>
         <GlobalStyles/>
-        <Game width={20} height={20} numberOfMines={80}/>
-        {/* {showGameMenu && <GameMenu success={success.current} onXMark={() => setShowGameMenu(false)}/>}
+        {/* <Game width={20} height={20} numberOfMines={80}/> */}
+        {showGameMenu && <GameMenu success={success.current} onXMark={() => setShowGameMenu(false)}/>}
         {showConfirmMenu && 
         <DialogMenu onXMark={() => setShowConfirmMenu(false)}
         buttons={[
@@ -52,7 +52,7 @@ function App() {
         }
         {showPauseMenu &&
           <PauseMenu onXMark={() => setShowPauseMenu(false)}/>
-        } */}
+        }
       </>
     </ThemeProvider>
     

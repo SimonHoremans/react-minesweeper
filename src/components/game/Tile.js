@@ -1,25 +1,25 @@
 import {FaBomb, FaFlag} from 'react-icons/fa'
 import { StyledTile } from './styles/Tile.styled'
 
-const Tile = ({x, y, tileSelect, tileSetFlag, tileState, dimensions}) => {
+const Tile = ({x, y, tileSelect, tileSetFlag, tileState}) => {
   let tileContent
-  let tileType
+  let tileClasses = ['tile']
   if(tileState != null) {
     if(tileState == -1) {
       tileContent = <FaBomb/>
-      tileType = 'bomb'
+      tileClasses.push('bomb', 'icon')
     }else if(tileState == -2) {
       tileContent = <FaFlag/>
-      tileType = 'flag'
+      tileClasses.push('flag', 'icon')
     } else {
       tileContent = tileState == 0 ? '' : tileState
-      tileType = `${tileState}`
+      tileClasses.push(`number-${tileState}`, 'letter')
     }
   }
   return (
-    <StyledTile width={dimensions.width} onClick={() => tileSelect(x, y)} tileType={tileType} onContextMenu={(e) =>  {e.preventDefault(); tileSetFlag(x, y)}}>
+    <div onClick={() => tileSelect(x, y)} className={tileClasses.join(' ')} onContextMenu={(e) =>  {e.preventDefault(); tileSetFlag(x, y)}}>
       <p>{tileContent}</p>
-    </StyledTile>
+    </div>
   )
 }
 

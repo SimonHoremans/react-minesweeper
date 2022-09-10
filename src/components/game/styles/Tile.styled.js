@@ -2,7 +2,7 @@ import styled, { ThemeConsumer } from 'styled-components'
 import { styleString } from '../../../breakpointStyleGenerator'
 import { breakpointStyleGenerator } from '../../../Theme'
 
-
+//obsolete, tile are styled with classes in StyledBoard
 export const StyledTile = styled.div.attrs(({theme, width}) => {
     const smallestTileSize = ((theme.sizes.board.smallestWidth[0] - 2*theme.sizes.board.border[0])/width)
     const sizes = theme.sizes.tile
@@ -49,6 +49,8 @@ export const StyledTile = styled.div.attrs(({theme, width}) => {
     }}
 
     ${({sizes, width, theme, tileType}) => {
+
+        console.log('runned')
 
         const boardSizes = theme.sizes.board
 

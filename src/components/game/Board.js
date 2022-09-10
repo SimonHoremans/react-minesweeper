@@ -31,7 +31,7 @@ const Board = () => {
     }
 
   return (
-    <StyledBoard>
+    <StyledBoard width={state.width}>
         {(() => {
             let tiles = []
             for(let y = 0; y < state.height; y++) {
