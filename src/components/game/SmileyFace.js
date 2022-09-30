@@ -7,10 +7,10 @@ import { useContext } from "react"
 
 const SmileyFace = ({mood}) => {
 
-  const {setShowPauseMenu} = useContext(GameContext)
+  const {dispatch} = useContext(GameContext)
 
   return (
-    <StyledSmileyFace onClick={() => setShowPauseMenu(true)}>
+    <StyledSmileyFace onClick={() => dispatch({type: 'OPEN_PAUSE_MENU'})}>
         {(() => {
           switch(mood) {
             case 'happy':

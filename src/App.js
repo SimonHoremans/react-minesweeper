@@ -3,7 +3,6 @@ import GlobalStyles from './components/styles/Global';
 import {ThemeProvider} from 'styled-components'
 import StatusBar from './components/game/StatusBar';
 import Game from './components/game/Game';
-import GameMenu from './components/game/GameMenu';
 import {theme} from './Theme'
 import {useState, useRef} from 'react'
 import Button from './components/game/Button';
@@ -14,11 +13,6 @@ import {Navigate, Route, Routes} from 'react-router-dom'
 import MainMenu from './components/game/MainMenu';
 
 function App() {
-
-  const [showGameMenu, setShowGameMenu] = useState(false)
-  const [showConfirmMenu, setShowConfirmMenu] = useState(false)
-  const [showPauseMenu, setShowPauseMenu] = useState(false)
-  const success = useRef(true)
 
   return (
     <ThemeProvider theme={theme}>

@@ -2,7 +2,15 @@ const copyMap = (map) => {
     return map.map(strip => strip.slice())
 }
 
-const updateMinefield = (minefield, selectedTile) => {
+const updateMinefield = (state, selectedTile) => {
+
+    state.visible = copyMap(state.visible)
+    state.flags = copyMap(state.flags)
+
+    const flags = state.flags
+    const mineMap = state.mineMap
+    const visible = state.visible
+
 
     const getAreaAroundTile = (width, height, x, y) => {
         let xMin = x - 1
@@ -32,9 +40,7 @@ const updateMinefield = (minefield, selectedTile) => {
         }
     }
 
-    const gameOver = (visible, mineMap) => {
-
-        const flags = copyMap(minefield.flags)
+    const gameOver = () => {
 
         mineMap.forEach((column, x) => {
             column.forEach((tile, y) => {
@@ -51,9 +57,10 @@ const updateMinefield = (minefield, selectedTile) => {
     }
     
 
-    const visible = copyMap(minefield.visible)
-    let flags = null
-    const mineMap = minefield.mineMap
+    // const visible = copyMap(minefield.visible)
+    // let numberOfExposedTiles = minefield.numberOfExposedTiles
+    // let flags = null
+    // const mineMap = minefield.mineMap
     const [xTile, yTile] = selectedTile
     const tileValue = mineMap[xTile][yTile]
 
@@ -62,13 +69,14 @@ const updateMinefield = (minefield, selectedTile) => {
 
 
     if(tileValue === -1) {
-        flags = gameOver(visible, mineMap)
-        return {newVisible: visible, newFlags: flags}
+        gameOver()
+        return
     }
 
     if(tileValue !== 0) {
         visible[xTile][yTile] = true
-        return {newVisible: visible, newFlags: flags}
+        state.numberOfExposedTiles += 1
+        return
     }
     
     const zeroTileQueque = [selectedTile]
@@ -76,7 +84,7 @@ const updateMinefield = (minefield, selectedTile) => {
     while (zeroTileQueque.length > 0) {
         const currentTile = zeroTileQueque[0]
         
-        const area = getAreaAroundTile(minefield.width, minefield.height, currentTile[0], currentTile[1])
+        const area = getAreaAroundTile(state.width, state.height, currentTile[0], currentTile[1])
 
         for(let x = area.x[0]; x < area.x[1]; x++) {
             for(let y = area.y[0]; y < area.y[1]; y++) {
@@ -84,6 +92,7 @@ const updateMinefield = (minefield, selectedTile) => {
                 if(visible[x][y]) continue
                 
                 visible[x][y] = true
+                state.numberOfExposedTiles += 1
 
                 if(mineMap[x][y] === 0) zeroTileQueque.push([x, y])  
             }
@@ -93,7 +102,8 @@ const updateMinefield = (minefield, selectedTile) => {
 
     }
 
-    return {newVisible: visible, newFlags: flags}
+
+    return
 }
 
 export default updateMinefield

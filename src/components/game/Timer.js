@@ -6,25 +6,40 @@ import { useContext } from 'react'
 
 const Timer = () => {
 
-    const {started, startTime, endTime} = useContext(GameContext)
+    const {state, startTime, elapsedTime, setEndTime} = useContext(GameContext)
+
+    const started = state.started
+    const showPauseMenu = state.showPauseMenu
     
     const [time, setTime] = useState(null)
 
     useEffect(() => {
 
         let interval
+        let counter = 0
         
         if(started) {
-            startTime.current = DateTime.now()
-            interval = setInterval(() => {
-                setTime((-startTime.current.diffNow()/1000).toFixed(1))
-            }, 100)
+
+            if(showPauseMenu) {
+                clearInterval(interval)
+                elapsedTime.current += -startTime.current.diffNow()
+                startTime.current = null
+                setTime((elapsedTime.current/1000).toFixed(1))
+            }
+
+            else {
+                startTime.current = DateTime.now()
+                interval = setInterval(() => {
+                    setTime(((-startTime.current.diffNow()+elapsedTime.current)/1000).toFixed(1))
+                }, 100)
+            }
         } else {
             if(startTime.current === null) {
                 setTime((0).toFixed(1))
             } else {
-                endTime.current = -startTime.current.diffNow()
-                setTime((endTime.current/1000).toFixed(1))
+                const totalTimeElapsed = elapsedTime.current-startTime.current.diffNow()
+                setEndTime(totalTimeElapsed)
+                setTime((totalTimeElapsed/1000).toFixed(1))
                 clearInterval(interval)
             }
         }
@@ -33,7 +48,7 @@ const Timer = () => {
         return () => {
             clearInterval(interval)
         }
-    }, [started])
+    }, [started, showPauseMenu])
 
 
 

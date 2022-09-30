@@ -7,7 +7,6 @@ export const StyledBoard = styled.div.attrs(({theme, width}) => {
 
     const smallestTileSize = ((theme.sizes.board.smallestWidth[0] - 2*theme.sizes.board.border[0])/width)
     const tileSizes = theme.sizes.tile
-    console.log('gelope')
 
     return {
         sizes: theme.sizes.board,
@@ -88,8 +87,6 @@ export const StyledBoard = styled.div.attrs(({theme, width}) => {
         return breakpointStyleGenerator([{
             values: 'relative',
             processor: (value, key) => {
-
-                console.log('runned')
 
                 if(key === 'xs') return
 

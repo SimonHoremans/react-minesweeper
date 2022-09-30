@@ -5,9 +5,9 @@ import { GameContext } from './Game'
 
 
 
-const Board = () => {
+const Board = ({state, dispatch}) => {
 
-    const {state, dispatch} = useContext(GameContext)
+    // const {state, dispatch} = useContext(GameContext)
 
     const getTileState = (x, y) => {
         // console.log(state)

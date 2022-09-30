@@ -9,7 +9,8 @@ import { useContext } from 'react'
 
 const StatusBar = () => {
 
-  const {mood} = useContext(GameContext)
+  const {state} = useContext(GameContext)
+  const mood = state.mood
 
   return (
     <StyledStatusBar>

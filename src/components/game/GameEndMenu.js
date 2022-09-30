@@ -1,8 +1,14 @@
 import { StyledGameMenu } from "./styles/GameMenu.styled"
 import top from '../../images/top.mp4'
 import unhappy from '../../images/unhappy.mp4'
+import { useContext } from "react"
+import { GameContext } from "./Game"
 
-const GameMenu = ({onXMark, onRetry=() => {return}, onMenu=() => {return}, success=true}) => {
+const GameEndMenu = ({onXMark, onRetry=() => {return}, onMenu=() => {return}, success=true}) => {
+
+
+  const {endTime, state} = useContext(GameContext)
+
   return (
     <StyledGameMenu onXMark={onXMark} buttons={[
         {
@@ -29,12 +35,12 @@ const GameMenu = ({onXMark, onRetry=() => {return}, onMenu=() => {return}, succe
           </div>
           {success && 
           <ul>
-            <li>Time: 999 seconds</li>
+            <li>Time: {(endTime/1000).toFixed(1)}s</li>
             <li>Settings:
               <ul>
-                <li>width: 20</li>
-                <li>height: 20</li>
-                <li>number of mines: 15</li>
+                <li>width: {state.width}</li>
+                <li>height: {state.height}</li>
+                <li>number of mines: {state.numberOfMines}</li>
               </ul>
             </li>
           </ul>
@@ -45,4 +51,4 @@ const GameMenu = ({onXMark, onRetry=() => {return}, onMenu=() => {return}, succe
   )
 }
 
-export default GameMenu
+export default GameEndMenu

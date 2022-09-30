@@ -41,7 +41,7 @@ const PauseMenu = ({onXMark, onResume, onRetry, onMenu, onStop}) => {
           callback: () => setConfirm(null)
         }
       ]}>
-        {confirm.message}
+        <p>{confirm.message}</p>
       </DialogMenu>
     }
     
