@@ -18,9 +18,6 @@ const StartMenu = () => {
             <div>
                 <Button onClick={onNewGame} stretch={true} color={theme.colorPalette.green} backgroundColor={backgroundColor}>New Game</Button>
             </div>
-            <div>
-                <Button onClick={() => console.log('oopsie woopsie hihihihihi')} stretch={true} color={theme.colorPalette.blue} backgroundColor={backgroundColor}>Leaderboard</Button>
-            </div>
         </div>
     </StyledSubMenu>
   )

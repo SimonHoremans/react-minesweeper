@@ -40,7 +40,7 @@ const CustomGameMode = () => {
             name: 'max',
             exclusive: false,
             params: {},
-            message: `Only 50% of the tiles can have mines. Pls stop hating yourself`,
+            message: `Only 50% of the tiles can have mines.`,
             test: (value, context) => {
                 return (value/(context.parent.width*context.parent.height)) <= .5
             }

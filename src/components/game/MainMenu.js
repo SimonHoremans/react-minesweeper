@@ -12,7 +12,7 @@ const MainMenu = () => {
 
   return (
     <StyledMainMenu>
-        <h1 onClick={() => navigate('/')}>Minnswipr</h1>
+        <h1 onClick={() => navigate('/')}>Minesweeper</h1>
         <Routes>
             <Route index element={<StartMenu/>}/>
             <Route path='gameMode' element={<GameModeMenu/>}/>

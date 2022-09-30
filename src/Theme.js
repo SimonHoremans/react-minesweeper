@@ -105,8 +105,7 @@ const sizes = {
   menu: {
     width: [{
       xs: 300,
-      sm: 425,
-      lg: 605
+      sm: 425
     }, 'px']
   },
 
