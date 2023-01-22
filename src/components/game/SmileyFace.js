@@ -17,8 +17,6 @@ const SmileyFace = ({mood}) => {
               return <FontAwesomeIcon icon={faFaceSmile} />
             case 'sad':
               return <FontAwesomeIcon icon={faFaceSadTear} />
-            case 'UwU':
-              return <p>UwU</p>
           }
         })()} 
     </StyledSmileyFace>

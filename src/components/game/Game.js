@@ -52,7 +52,7 @@ function reducer(state, action) {
 
 
             if(newState.numberOfExposedTiles === state.numberOfTilesToExpose) {
-                newState.mood = 'UwU'
+                newState.mood = 'happy'
                 newState.started = false
                 newState.showGameEndMenu = true
                 newState.playing = false
